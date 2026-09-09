@@ -33,3 +33,16 @@ External services: Google Fonts for Space Grotesk and IBM Plex Sans (local syste
 ## Performance checks
 
 Mobile and reduced-motion visitors receive the static anchor and do not request the Hero3D/Three.js chunk. Desktop 3D loads after initial paint, uses pixel ratio 1, and stops when outside the viewport. Production build separates 3D from the initial page bundle. See `QA.md` for checks performed in this workspace and their limits.
+
+## Spatial city navigation
+
+`components/CityNav.tsx` is independently toggleable: set `<CityNav enabled={false} />` in `app/page.tsx`, or remove that component. It sits immediately after the hero stats, before Projects, as an optional visual table of contents. The AR scan hero is preserved.
+
+- Five modular buildings map to Projects, Experience, Skills (`#stack`), Certifications, and Contact. `components/city-data.ts` is their shared geometry/route model.
+- `components/CityScene.tsx` uses the existing R3F/Drei/GSAP dependencies. It settles into an angled overview, pulses amber edges on hover/focus, and moves the camera toward a selected building for 0.8 seconds before navigating. Heading focus and URL fragments update with navigation. Direct section links cancel an unfinished camera approach.
+- The scene is lazy-loaded only when its viewport intersects the screen, and unmounts when offscreen or the document is hidden. Demand rendering targets 30 draws/second at DPR 1. A small coordination event pauses hero animation while the city is live, so the scenes do not animate concurrently.
+- Desktop users can switch to the static map at any time. Below 768px and with reduced motion, `components/CityMap.tsx` renders a clickable SVG projection of the same building geometry. No 3D chunk or WebGL canvas is loaded for mobile. The five ordinary links remain available independently of the scene, including after loading errors or context loss.
+- `components/city-nav.css` contains the city-specific styling.
+- A development-only `?city-benchmark=1` option allows measuring the live scene at a mobile viewport. Development diagnostics on `.city-viewport` report measured render-loop FPS, p95 frame interval, draw calls, and triangle count. This override and measurement code are excluded from production.
+
+The live city reached its 30 FPS target in a 6× CPU-throttled mobile-sized browser test. The production mobile choice remains static to save continuous GPU work and provide clearer, stable touch targets; desktop emulation does not establish performance on a physical phone.

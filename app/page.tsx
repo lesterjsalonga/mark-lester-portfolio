@@ -5,12 +5,14 @@ import Timeline from '../components/Timeline';
 import SpatialViewport from '../components/SpatialViewport';
 import GitHubActivity from '../components/GitHubActivity';
 import MarkerGame from '../components/MarkerGame';
+import CityNav from '../components/CityNav';
 function Heading({number,title,detail}:{number:string;title:string;detail?:string}){return <div className="section-heading"><h2><span>{number} —</span> {title}</h2>{detail&&<span>{detail}</span>}</div>}
 export default function App(){return <>
 <a className="skip-link" href="#projects">Skip to projects</a>
 <header className="site-header"><a className="wordmark" href="#" aria-label="Mark Lester J. Salonga, back to top"><Crosshair size={22}/> Mark Lester J. Salonga<span> / PORTFOLIO</span></a><nav aria-label="Main navigation"><a href="#projects">01 Projects</a><a href="#experience">02 Experience</a><a href="#stack">03 Stack</a><a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={17}/></a><a href={`mailto:${profile.email}`}>Let’s talk <ArrowUpRight size={15}/></a></nav></header>
 <main className="shell"><section className="hero" aria-labelledby="name"><div className="hero-copy"><div className="eyebrow"><span className="status-dot"/> FULL-STACK / SPATIAL COMPUTING</div><h1 id="name">MARK LESTER<br/>J. SALONGA</h1><p className="exact-title">{profile.title}</p><p className="location"><MapPin size={14}/>{profile.location}</p><div className="intro"><p>I build for the screen—and the space around it. From AR museum guides to campus wayfinding, I turn real places into interactive experiences.</p><p>Behind those experiences, I build the web systems that keep things moving: content platforms, access controls, and workflows.</p></div><div className="hero-actions"><a className="button primary" href="#projects">Explore my work <ArrowDown size={16}/></a><a className="button" href={profile.github} target="_blank" rel="noreferrer"><Github size={17}/> GitHub <ArrowUpRight size={15}/></a></div></div><SpatialViewport/></section>
 <div className="stats"><div><strong>03</strong><span>Projects led &amp; developed</span></div><div><strong>02</strong><span>AR applications</span></div><div><strong>08</strong><span>Certifications</span></div><div><strong className="stat-honor">President’s<br/>Lister</strong><span>Academic honor</span></div></div>
+<CityNav enabled />
 <section id="projects" className="section"><Heading number="01" title="Projects" detail="SELECTED SYSTEMS / 2025"/><div className="project-grid">{projects.map((project,index)=><ProjectCard key={project.name} project={project} index={index}/>)}</div></section>
 <section id="experience" className="section"><Heading number="02" title="Experience" detail="BUILDING & SUPPORTING"/><Timeline/></section>
 <section id="stack" className="section"><Heading number="03" title="Technical skills" detail="TOOLS OF THE TRADE"/><div className="skills-grid">{skills.map(group=><div className="skill-group" key={group.category}><h3>{group.category}</h3><div className="flex flex-wrap gap-2">{group.items.map(item=><span className="tag" key={item}>{item}</span>)}</div></div>)}</div></section>
@@ -20,5 +22,3 @@ export default function App(){return <>
 <MarkerGame/>
 <section id="contact" className="contact"><div><span className="eyebrow">NEXT / LET’S CONNECT</span><h2>Have something<br/>in mind<span className="accent">?</span></h2></div><div className="contact-links"><a className="contact-email" href={`mailto:${profile.email}`}><Mail size={20}/><span>{profile.email}</span><ArrowUpRight size={24}/></a><a className="text-link" href={profile.github} target="_blank" rel="noreferrer"><Github size={17}/> github.com/lesterjsalonga <ArrowUpRight size={16}/></a></div></section>
 </main><footer className="shell"><span>MARK LESTER J. SALONGA</span><span>Bocaue, Bulacan, Philippines</span><a href="#">Back to top ↑</a></footer></>}
-
-
