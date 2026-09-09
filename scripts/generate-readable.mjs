@@ -9,7 +9,7 @@ const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta nam
 <section id="experience"><h2>02 — Experience</h2>${experience.map(job=>`<article><h3>${escape(job.role)}</h3>${p(job.date)}${p(job.company)}<ul>${job.bullets.map(bullet=>`<li>${escape(bullet)}</li>`).join('')}</ul></article>`).join('')}</section>
 <section id="stack"><h2>03 — Technical skills</h2>${skills.map(group=>`<article><h3>${escape(group.category)}</h3>${tags(group.items)}</article>`).join('')}</section>
 <section id="certifications"><h2>04 — Certifications</h2>${certifications.map(group=>`<article><h3>${escape(group.category)}</h3><ul>${group.items.map(item=>`<li>${escape(item)}</li>`).join('')}</ul></article>`).join('')}</section>
-<section id="education"><h2>05 — Education</h2><h3>${escape(education.degree)}</h3>${p(education.school+' • '+education.honor+' · '+education.date)}${p(education.also)}</section>
+<section id="education"><h2>05 — Education</h2><h3>${escape(education.degree)}</h3>${p(education.school+' · '+education.date)}${p(education.also)}</section>
 <section id="github"><h2>06 — GitHub</h2><p><a href="${escape(profile.github)}">@lesterjsalonga — public repositories and contribution history ↗</a></p></section>
 <section id="contact"><h2>Contact</h2><p><a href="mailto:${escape(profile.email)}">${escape(profile.email)}</a></p><p><a href="${escape(profile.github)}">github.com/lesterjsalonga ↗</a></p>${p(profile.location)}</section></main><footer><a href="#">Back to top ↑</a> · <a href="/">City experience →</a></footer></body></html>`;
 writeFileSync(new URL('../public/readable.html',import.meta.url),html);

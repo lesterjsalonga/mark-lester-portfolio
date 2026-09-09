@@ -118,14 +118,6 @@ export default function App() {
               <strong>08</strong>
               <span>Certifications</span>
             </div>
-            <div>
-              <strong className="stat-honor">
-                President’s
-                <br />
-                Lister
-              </strong>
-              <span>Academic honor</span>
-            </div>
           </div>
         </Reveal>
         <CityNav enabled />
@@ -138,8 +130,7 @@ export default function App() {
                 <span className="meta">{education.date}</span>
               </div>
               <p>
-                {education.school}{' '}
-                <span className="education-honor">• {education.honor}</span>
+                {education.school}
               </p>
               <p className="education-also">{education.also}</p>
             </article>

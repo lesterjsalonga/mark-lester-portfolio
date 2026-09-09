@@ -44,5 +44,5 @@ export const certifications = [
  {category:'Business & Professional',items:['Agentblazer Champion Workshop (Salesforce, 2025)','Microsoft Office Specialist – Excel 2019 (2023)','Java Programming (Oracle, 2023)']},
 ];
 export const education = {
- degree:'BS in Information Technology',school:"Dr. Yanga's Colleges Inc., Bocaue, Bulacan",honor:"President's Lister",date:'Jul 2026',also:'Also: Huawei ICT Competition – Cloud Track, APAC Practice (2025) • 4th Regional Cybersecurity Conference, PSITE-CL (2025)',
+ degree:'BS in Information Technology',school:"Dr. Yanga's Colleges Inc., Bocaue, Bulacan",date:'Jul 2026',also:'Also: Huawei ICT Competition – Cloud Track, APAC Practice (2025) • 4th Regional Cybersecurity Conference, PSITE-CL (2025)',
 };
