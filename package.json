@@ -10,7 +10,9 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "oxlint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "predev": "node --experimental-strip-types scripts/generate-readable.mjs",
+    "prebuild": "node --experimental-strip-types scripts/generate-readable.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

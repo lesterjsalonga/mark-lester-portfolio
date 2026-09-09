@@ -1,5 +1,6 @@
 import { Component, lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Crosshair } from 'lucide-react';
+import { supportsWebGL2 } from '../lib/webgl';
 const Hero3D=lazy(()=>import('./Hero3D'));
 function StaticAnchor(){return <div className="static-anchor" aria-hidden="true"><Crosshair/><span>ANCHOR_01</span><small>PLANE / XZ</small></div>}
 class SceneBoundary extends Component<{children:ReactNode},{failed:boolean}>{
@@ -14,7 +15,7 @@ export default function SpatialViewport(){
  window.addEventListener('portfolio:city-active',cityChange);
  const media=matchMedia('(min-width: 768px) and (prefers-reduced-motion: no-preference)');
  let idle:number;let cancelled=false;
- const update=()=>{window.clearTimeout(idle);if(!media.matches){setEnabled(false);return}idle=window.setTimeout(()=>{if(!cancelled)setEnabled(true)},400)};
+ const update=()=>{window.clearTimeout(idle);if(!media.matches){setEnabled(false);return}idle=window.setTimeout(()=>{if(!cancelled)setEnabled(supportsWebGL2())},400)};
  update();media.addEventListener('change',update);
  const observer=new IntersectionObserver(([entry])=>setActive(entry.isIntersecting && !document.hidden));
  if(viewport.current)observer.observe(viewport.current);
@@ -22,5 +23,5 @@ export default function SpatialViewport(){
  document.addEventListener('visibilitychange',visibility);
  return()=>{window.removeEventListener('portfolio:city-active',cityChange);cancelled=true;window.clearTimeout(idle);media.removeEventListener('change',update);observer.disconnect();document.removeEventListener('visibilitychange',visibility)};
  },[]);
- return <div ref={viewport} className="viewport" role="img" aria-label="AR marker tracking demonstration with an amber anchor above a tracking plane"><div className="viewport-top"><span>SPATIAL VIEWPORT</span><span className="accent">● AR DEMO</span></div><SceneBoundary><Suspense fallback={<StaticAnchor/>}>{enabled?<Hero3D active={active && !cityActive}/>:<StaticAnchor/>}</Suspense></SceneBoundary><div className="viewport-bottom"><span>AR / WORLD SPACE</span><span>X → Y ↑ Z ↗</span></div></div>
+ return <div ref={viewport} className="viewport" role="img" aria-label="AR marker tracking demonstration with an amber anchor above a tracking plane"><div className="viewport-top"><span className="accent">● AR DEMO</span></div><SceneBoundary><Suspense fallback={<StaticAnchor/>}>{enabled?<Hero3D active={active && !cityActive}/>:<StaticAnchor/>}</Suspense></SceneBoundary><div className="viewport-bottom"><span>AR / WORLD SPACE</span><span>X → Y ↑ Z ↗</span></div></div>
 }

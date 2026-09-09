@@ -311,3 +311,226 @@
     padding: 6px !important;
   }
 }
+.city-viewport {
+  height: 560px;
+}
+.city-viewport.has-content .city-map {
+  opacity: 0.3;
+}
+.city-static-content {
+  position: absolute;
+  inset: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.city-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  max-height: 500px;
+  border: 1px solid #a56b3c;
+  background: #0d0c0bf7;
+  box-shadow: 0 0 0 6px #0a0a0a88;
+  animation: room-arrive 0.28s ease-out;
+  outline-offset: 3px;
+  color: var(--foreground, #eeeae4);
+}
+.city-content:focus {
+  outline: 1px solid #ff9b4566;
+}
+.city-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.city-content-header h2 {
+  font-size: 27px;
+  margin: 7px 0 0;
+}
+.room-back {
+  height: auto !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  white-space: nowrap;
+}
+.city-content-scroll {
+  overflow: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+  padding: 24px;
+  scrollbar-color: #77502f #16130f;
+  scrollbar-width: thin;
+  max-height: 350px;
+}
+.city-content-scroll:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: -4px;
+}
+.room-readable {
+  flex-shrink: 0;
+  border-top: 1px solid var(--line);
+  padding: 12px 24px !important;
+  font-size: 13px !important;
+}
+.city-content .project {
+  display: block !important;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.city-content .project h3 {
+  font-size: 21px !important;
+  margin-top: 15px;
+}
+.city-content .project p {
+  font-size: 16px;
+  line-height: 1.7;
+}
+.city-content .project-top {
+  align-items: start;
+}
+.city-content .project .meta {
+  font-size: 13px;
+}
+.city-content .project-index {
+  font-size: 11px;
+  letter-spacing: 0.6px;
+}
+.city-content .job {
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 20px 0;
+}
+.city-content .job h3 {
+  font-size: 21px;
+}
+.city-content .job li {
+  font-size: 16px;
+}
+.room-certifications {
+  display: grid;
+  gap: 25px;
+}
+.city-content .skill-group {
+  padding: 18px 12px 18px 0;
+}
+.city-content .skill-group:nth-child(even) {
+  padding-left: 20px;
+}
+.city-content .skill-group h3 {
+  font-size: 16px;
+}
+.room-contact {
+  display: grid;
+  gap: 20px;
+  padding: 8px 0;
+}
+.room-contact > p:first-child {
+  font:
+    26px 'Space Grotesk',
+    sans-serif;
+  margin: 0;
+}
+.room-contact .contact-email {
+  font-size: 17px;
+}
+.room-contact .location {
+  margin: 0;
+}
+.city-links a[aria-current='true'] {
+  color: var(--accent);
+  background: #1d160f;
+}
+.city-heading .text-link {
+  white-space: nowrap;
+}
+@keyframes room-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 700px) {
+  .city-viewport {
+    height: 480px;
+  }
+  .city-static-content {
+    inset: 10px;
+  }
+  .city-content {
+    max-height: 456px;
+  }
+  .city-content-header {
+    padding: 15px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .city-content-header h2 {
+    font-size: 23px;
+  }
+  .city-content-header .eyebrow {
+    font-size: 10px;
+  }
+  .room-back {
+    font-size: 12px;
+    padding: 9px !important;
+  }
+  .city-content-scroll {
+    padding: 15px;
+    max-height: 285px;
+  }
+  .room-readable {
+    font-size: 12px !important;
+    padding: 10px 15px !important;
+  }
+  .city-content .project {
+    padding: 15px;
+  }
+  .city-content .project-top {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .city-content .project h3 {
+    font-size: 20px !important;
+  }
+  .city-content .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .city-content .skill-group:nth-child(even) {
+    padding-left: 0;
+  }
+  .room-contact .contact-email {
+    font-size: 15px;
+  }
+  .room-contact .contact-email svg {
+    width: 16px;
+  }
+  .city-heading .text-link {
+    white-space: normal;
+  }
+}
+.room-reading-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+.city-content {
+  transition:
+    opacity 0.16s,
+    transform 0.16s;
+}
+.city-content.is-closing {
+  opacity: 0;
+  transform: translateY(8px);
+}

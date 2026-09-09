@@ -10,80 +10,80 @@ export type CityDestination = {
   height: number;
   blocks: CityBlock[];
 };
-// The live scene and the static isometric map share this single geometry model.
+// Shared live/static geometry. Each silhouette expresses the building's purpose.
 export const cityDestinations: CityDestination[] = [
   {
     id: 'projects',
     label: 'Projects',
     number: '01',
-    position: [-2.1, 0, -1.4],
-    height: 1.85,
+    position: [-2.3, 0, -1.5],
+    height: 1.9,
     blocks: [
-      { offset: [0, 0.55, 0], size: [1.65, 1.1, 1.4] },
-      { offset: [-0.3, 1.475, -0.2], size: [0.9, 0.75, 0.95] },
+      { offset: [-0.5, 0.4, 0], size: [0.9, 0.8, 1.4] },
+      { offset: [0.5, 0.55, 0.25], size: [0.9, 1.1, 0.9] },
+      { offset: [-0.5, 1.05, -0.15], size: [0.9, 0.4, 1.1] },
+      { offset: [-0.65, 1.6, -0.3], size: [0.6, 0.6, 0.75] },
+      { offset: [0.45, 1.45, 0.25], size: [1, 0.35, 1] },
     ],
   },
   {
     id: 'experience',
     label: 'Experience',
     number: '02',
-    position: [1.4, 0, -2],
-    height: 2.25,
+    position: [1.4, 0, -2.1],
+    height: 2.75,
     blocks: [
-      { offset: [0, 0.9, 0], size: [1.1, 1.8, 1.1] },
-      { offset: [0, 2.025, 0], size: [0.8, 0.45, 0.8] },
+      { offset: [0, 0.3, 0], size: [1.55, 0.6, 1.3] },
+      { offset: [0.1, 0.95, -0.1], size: [1.2, 0.6, 1.1] },
+      { offset: [0.2, 1.6, -0.2], size: [0.9, 0.6, 0.85] },
+      { offset: [0.3, 2.275, -0.3], size: [0.6, 0.75, 0.6] },
+      { offset: [0.3, 2.7, -0.3], size: [0.2, 0.1, 0.2] },
     ],
   },
   {
     id: 'stack',
     label: 'Skills',
     number: '03',
-    position: [-2, 0, 1.6],
-    height: 1.05,
+    position: [-2.2, 0, 1.6],
+    height: 1.3,
     blocks: [
-      { offset: [0, 0.25, 0], size: [1.7, 0.5, 1.3] },
-      { offset: [0, 0.775, -0.25], size: [1.2, 0.55, 0.8] },
+      { offset: [0, 0.1, 0], size: [1.9, 0.2, 1.5] },
+      ...Array.from({ length: 6 }, (_, i) => ({
+        offset: [((i % 3) - 1) * 0.58, 0.3 + Math.floor(i / 3) * 0.65, 0] as [
+          number,
+          number,
+          number,
+        ],
+        size: [0.42, 0.6, 0.95] as [number, number, number],
+      })),
     ],
   },
   {
     id: 'certifications',
     label: 'Certifications',
     number: '04',
-    position: [1.55, 0, 0.65],
-    height: 1.65,
+    position: [1.6, 0, 0.65],
+    height: 2.1,
     blocks: [
-      { offset: [-0.4, 0.65, 0], size: [0.5, 1.3, 1] },
-      { offset: [0.4, 0.65, 0], size: [0.5, 1.3, 1] },
-      { offset: [0, 1.475, 0], size: [1.3, 0.35, 1] },
+      { offset: [0, 0.12, 0], size: [1.8, 0.24, 1.5] },
+      { offset: [0, 0.37, 0], size: [1.35, 0.26, 1.1] },
+      { offset: [-0.53, 1.1, 0], size: [0.25, 1.2, 0.45] },
+      { offset: [0.53, 1.1, 0], size: [0.25, 1.2, 0.45] },
+      { offset: [0, 1.75, 0], size: [1.55, 0.3, 0.6] },
+      { offset: [0, 2.025, 0], size: [0.5, 0.25, 0.4] },
     ],
   },
   {
     id: 'contact',
     label: 'Contact',
     number: '↗',
-    position: [0.15, 0, 3.35],
-    height: 0.95,
+    position: [0.05, 0, 3.55],
+    height: 0.85,
     blocks: [
-      { offset: [0, 0.3, 0], size: [1.6, 0.6, 0.95] },
-      { offset: [0, 0.775, 0], size: [0.85, 0.35, 0.6] },
+      { offset: [0, 0.2, 0], size: [1.45, 0.4, 0.85] },
+      { offset: [-0.5, 0.55, -0.2], size: [0.14, 0.3, 0.3] },
+      { offset: [0.5, 0.55, -0.2], size: [0.14, 0.3, 0.3] },
+      { offset: [0, 0.78, -0.05], size: [1.6, 0.14, 1] },
     ],
   },
 ];
-export function navigateToSection(id: string) {
-  const section = document.getElementById(id);
-  if (!section) return;
-  window.dispatchEvent(new Event('portfolio:section-navigation'));
-  history.pushState(null, '', `#${id}`);
-  section.scrollIntoView({
-    behavior: matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? 'instant'
-      : 'smooth',
-    block: 'start',
-  });
-  // Transfer keyboard/screen-reader context along with the visual navigation.
-  const heading = section.querySelector<HTMLElement>('h2');
-  if (heading) {
-    heading.tabIndex = -1;
-    heading.focus({ preventScroll: true });
-  }
-}

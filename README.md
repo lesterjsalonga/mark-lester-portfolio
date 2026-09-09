@@ -1,10 +1,10 @@
 # Mark Lester J. Salonga — Portfolio
 
-A static Vite + React + TypeScript portfolio with a thermal amber AR tracking interface. Tailwind CSS handles utility layout, React Three Fiber / Drei render the desktop scene, GSAP ScrollTrigger connects the anchor to scrolling, and Framer Motion handles only the calibration status micro-interaction.
+An existing Vite + React + TypeScript portfolio revised around an explorable amber AR city. The AR scan hero remains; the five buildings now contain the full Projects, Experience, Skills, Certifications, and Contact content. Education and GitHub activity remain below the city. No backend or credentials are required.
 
-## Run locally
+## Run and deploy
 
-Requires Node.js 22.13+.
+Requires Node.js 22.13+ (the content generator uses Node's type-stripping flag).
 
 ```sh
 npm install
@@ -13,36 +13,26 @@ npm run build
 npm run preview
 ```
 
-Deploy the `dist` folder to Vercel or Netlify. Included configuration files select the build command and output directory. No backend, secrets, or environment variables are required.
+`predev` and `prebuild` generate `public/readable.html` from `app/resume.ts`. The full text version is always available and works without JavaScript or WebGL. The main HTML document includes a fallback link even if the application script fails to load. Deploy `dist` to Vercel or Netlify using the included configuration.
 
-## Content and extension
+## Content architecture
 
-- `app/resume.ts`: exact resume experience bullets, project descriptions, skills, certifications, and education. Only PDF line wraps have been joined. Three Huawei credentials share the original single grouped entry; eight certifications total.
-- `components/ProjectCard.tsx`: every project is fully visible. Set `image` and `liveUrl` on the corresponding record in `app/resume.ts` once real assets/URLs are available. No fake screenshots or dead links are rendered.
-- `components/Hero3D.tsx`: low-complexity anchor, tracking floor, and scan line; fixed pixel ratio of 1 and no lights, textures, shadows, or postprocessing.
-- `components/SpatialViewport.tsx`: lazy-loads the 3D module only above 767px when reduced motion is off; static fallback for mobile, loading, and rendering errors. Rendering pauses offscreen and when the document is hidden.
-- `components/Timeline.tsx`: full experience in reverse chronological order.
-- `components/MarkerGame.tsx`: skippable three-marker calibration with pointer, touch, and keyboard controls. It runs only after Start and can be stopped anytime. Reduced motion freezes the moving marker.
-- `components/GitHubActivity.tsx`: fetches recent real public GitHub events. Handles empty activity, rate limiting, and failures without invented contribution data. Links to the full contribution history.
-- `app/globals.css`: palette, typography, responsive rules, bracket interactions, and reduced-motion styles.
+- `app/resume.ts`: canonical verbatim resume content. Phone number and the original PDF remain excluded. Every project has commented `image` and `liveUrl` fields for real assets/URLs.
+- `components/CityNav.tsx`: independently toggleable city, room selection, deep links, low-power/static view, visibility management, context-failure fallback, and ordinary building links. Set `<CityNav enabled={false} />` to replace it with a link to the full text portfolio.
+- `components/CityContent.tsx`: the only interactive-page rendering of the five buildings' full content. Projects and Experience use scrollable cards/timelines; Skills and Certifications keep the resume categories; Contact contains the email and GitHub links. Back to city and Escape restore the overview and keyboard focus. These sections are not duplicated below the city.
+- `components/CityScene.tsx`: existing R3F/Drei stack with GSAP camera movement. Selecting a building splits and fades its modular facade, then reveals `CityContent` through Drei `Html`, anchored at that building's interior. HTML stays untransformed for readable text. The renderer pauses after the room opens and resumes on return to the overview.
+- `components/city-data.ts`: one geometry model for live and static views. Projects has multiple wings/floors; Experience rises through tiers; Skills uses repeated rack modules; Certifications is a raised gateway monument; Contact is a low entrance pavilion.
+- `components/CityMap.tsx`: SVG projection of the same model, used below 768px, for reduced motion, or without WebGL. Selecting a building opens the same complete HTML content in the map viewport.
+- `components/SiteMotion.tsx`: Framer Motion scroll reveals using transform/opacity, with an instant reduced-motion path. Project cards, experience entries, the stats strip, Education, and GitHub use the shared reveal behavior. Global CSS applies bracket-corner hover/focus states to interactive elements.
+- `scripts/generate-readable.mjs`: produces the separate no-JavaScript full text view, with all canonical content escaped and all section links usable without client-side code.
+- `components/SpatialViewport.tsx` and `Hero3D.tsx`: preserved AR hero. The old viewport label and the entire calibration game were removed, including the game's component, state, and CSS.
 
-Phone number and original resume PDF are intentionally excluded from public files pending the owner's confirmation. The photo is not needed for the requested AR interface. Hero framing is newly written in first person, based only on the supplied experience. Competition participation is not presented as a placement or award.
+## Performance and accessibility
 
-External services: Google Fonts for Space Grotesk and IBM Plex Sans (local system fallback); GitHub's public events endpoint (graceful failure state). The site works without either service.
+The city is imported only when its viewport enters view, and unmounts offscreen or when the document is hidden. It targets 30 renders/second in overview, uses DPR 1, and adds no textures, shadows, or postprocessing. Only the selected room's HTML mounts. The city pauses the hero while active, and stops its own continuous render loop while a room is being read. Hover/focus animation uses the existing amber bracket/reticle language.
 
-## Performance checks
+Reduced-motion users receive the static map, instant room changes, and visible content without scroll fades. A permanent full-text link bypasses both graphics and client-side interaction. All rooms support keyboard access, a labelled scroll region, Escape, and focus restoration.
 
-Mobile and reduced-motion visitors receive the static anchor and do not request the Hero3D/Three.js chunk. Desktop 3D loads after initial paint, uses pixel ratio 1, and stops when outside the viewport. Production build separates 3D from the initial page bundle. See `QA.md` for checks performed in this workspace and their limits.
+For local profiling only, `?city-benchmark=1` enables the live scene at mobile dimensions. Development-only data attributes on `.city-viewport` report actual R3F FPS, p95 frame interval, draw calls, and triangle count. The override and counters are stripped from production. Desktop CPU throttling does not replace a physical phone benchmark. See `QA.md` for measured results and limits.
 
-## Spatial city navigation
-
-`components/CityNav.tsx` is independently toggleable: set `<CityNav enabled={false} />` in `app/page.tsx`, or remove that component. It sits immediately after the hero stats, before Projects, as an optional visual table of contents. The AR scan hero is preserved.
-
-- Five modular buildings map to Projects, Experience, Skills (`#stack`), Certifications, and Contact. `components/city-data.ts` is their shared geometry/route model.
-- `components/CityScene.tsx` uses the existing R3F/Drei/GSAP dependencies. It settles into an angled overview, pulses amber edges on hover/focus, and moves the camera toward a selected building for 0.8 seconds before navigating. Heading focus and URL fragments update with navigation. Direct section links cancel an unfinished camera approach.
-- The scene is lazy-loaded only when its viewport intersects the screen, and unmounts when offscreen or the document is hidden. Demand rendering targets 30 draws/second at DPR 1. A small coordination event pauses hero animation while the city is live, so the scenes do not animate concurrently.
-- Desktop users can switch to the static map at any time. Below 768px and with reduced motion, `components/CityMap.tsx` renders a clickable SVG projection of the same building geometry. No 3D chunk or WebGL canvas is loaded for mobile. The five ordinary links remain available independently of the scene, including after loading errors or context loss.
-- `components/city-nav.css` contains the city-specific styling.
-- A development-only `?city-benchmark=1` option allows measuring the live scene at a mobile viewport. Development diagnostics on `.city-viewport` report measured render-loop FPS, p95 frame interval, draw calls, and triangle count. This override and measurement code are excluded from production.
-
-The live city reached its 30 FPS target in a 6× CPU-throttled mobile-sized browser test. The production mobile choice remains static to save continuous GPU work and provide clearer, stable touch targets; desktop emulation does not establish performance on a physical phone.
+External services: Google Fonts (system fallback) and GitHub public activity (honest unavailable state and a direct GitHub link). Neither is required to read the portfolio.
