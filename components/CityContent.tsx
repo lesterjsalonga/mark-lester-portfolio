@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowUpRight, Mail } from 'lucide-react';
 import { Button } from './ui/button';
-import { profile, projects, skills, certifications } from '../app/resume';
+import { profile, projects, skills, certifications, certificateDocuments } from '../app/resume';
 import ProjectCard from './ProjectCard';
 import Timeline from './Timeline';
 import { cityDestinations } from './city-data';
@@ -61,7 +61,7 @@ export default function CityContent({
                   ? '2 roles'
                   : id === 'stack'
                     ? '4 skill groups'
-                    : '8 certifications'}
+                    : 'certifications'}
               .
             </p>
           )}
@@ -110,7 +110,22 @@ export default function CityContent({
                       <span className="cert-mark" aria-hidden="true">
                         ↗
                       </span>
-                      {item}
+                      <div className="certificate-entry">
+                        <span>{item}</span>
+                        {certificateDocuments[item]?.map((document, _, documents) => (
+                          <a
+                            key={document.href}
+                            className="text-link certificate-link"
+                            href={document.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`View certificate: ${document.label} (opens in a new tab)`}
+                          >
+                            {documents.length > 1 ? `View ${document.label} certificate` : 'View certificate'}
+                            <ArrowUpRight size={14} aria-hidden="true" />
+                          </a>
+                        ))}
+                      </div>
                     </li>
                   ))}
                 </ul>

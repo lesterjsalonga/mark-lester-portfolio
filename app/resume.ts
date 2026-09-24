@@ -40,9 +40,22 @@ export const skills = [
  {category:'Practices',items:['RBAC & Web Security','Project Leadership','Team Collaboration']},
 ];
 export const certifications = [
+ {category:'Additional Learning',items:['AI for Business (HP LIFE)','Cybersecurity (HP LIFE)']},
  {category:'Cloud, AI & Data',items:['Building RAG Apps Using MongoDB (MongoDB, 2026)','IT Specialist — Artificial Intelligence (Certiport, 2026)','HCIA–AI, HCIA–Cloud Computing, HCIA–Cloud Service (Huawei, 2025)']},
  {category:'Business & Professional',items:['Agentblazer Champion Workshop (Salesforce, 2025)','Microsoft Office Specialist – Excel 2019 (2023)','Java Programming (Oracle, 2023)']},
 ];
+// Only attach documents supplied in public/certs; unprovided certificates stay text-only.
+export const certificateDocuments: Record<string, { label: string; href: string }[]> = {
+ 'HCIA–AI, HCIA–Cloud Computing, HCIA–Cloud Service (Huawei, 2025)': [
+  {label:'HCIA–AI',href:'/certs/Huawei_HCIA_AI.png'},
+  {label:'HCIA–Cloud Computing',href:'/certs/Huawei_HCIA_Cloud_Computing.png'},
+  {label:'HCIA–Cloud Service',href:'/certs/Huawei_HCIA_Cloud_Service.png'},
+ ],
+ 'Agentblazer Champion Workshop (Salesforce, 2025)': [{label:'Agentblazer Champion',href:'/certs/Salesforce_Agentblazer_Champion.pdf'}],
+ 'Microsoft Office Specialist – Excel 2019 (2023)': [{label:'Microsoft Excel 2019',href:'/certs/Microsoft_Excel_2019.pdf'}],
+ 'AI for Business (HP LIFE)': [{label:'AI for Business',href:'/certs/HP_Life_AI_Business.pdf'}],
+ 'Cybersecurity (HP LIFE)': [{label:'Cybersecurity',href:'/certs/HP_Life_Cybersecurity.pdf'}],
+};
 export const education = {
  degree:'BS in Information Technology',school:"Dr. Yanga's Colleges Inc., Bocaue, Bulacan",date:'Jul 2026',also:'Also: Huawei ICT Competition – Cloud Track, APAC Practice (2025) • 4th Regional Cybersecurity Conference, PSITE-CL (2025)',
 };

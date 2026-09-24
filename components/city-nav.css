@@ -534,3 +534,7 @@
   opacity: 0;
   transform: translateY(8px);
 }
+
+.certificate-entry { min-width: 0; flex: 1; }
+.certificate-link { display: flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin-top: 8px; padding: 8px 0; font-size: 13px; overflow-wrap: anywhere; }
+.certificate-link svg { flex-shrink: 0; }
