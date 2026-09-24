@@ -46,6 +46,9 @@ export const certifications = [
 ];
 // Only attach documents supplied in public/certs; unprovided certificates stay text-only.
 export const certificateDocuments: Record<string, { label: string; href: string }[]> = {
+ 'Java Programming (Oracle, 2023)': [{label:'Java Programming',href:'/certs/Java_Programming.pdf'}],
+ 'Building RAG Apps Using MongoDB (MongoDB, 2026)': [{label:'Building RAG Apps Using MongoDB',href:'/certs/Building_RAG_MongoDB.pdf'}],
+ 'IT Specialist — Artificial Intelligence (Certiport, 2026)': [{label:'IT Specialist — Artificial Intelligence',href:'/certs/it-specialist-artificial-intelligence.png'}],
  'HCIA–AI, HCIA–Cloud Computing, HCIA–Cloud Service (Huawei, 2025)': [
   {label:'HCIA–AI',href:'/certs/Huawei_HCIA_AI.png'},
   {label:'HCIA–Cloud Computing',href:'/certs/Huawei_HCIA_Cloud_Computing.png'},
