@@ -538,3 +538,5 @@
 .certificate-entry { min-width: 0; flex: 1; }
 .certificate-link { display: flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin-top: 8px; padding: 8px 0; font-size: 13px; overflow-wrap: anywhere; }
 .certificate-link svg { flex-shrink: 0; }
+
+.project-featured{border-color:var(--accent)}.featured-label{color:var(--accent);margin:0 0 16px}.project-screenshots figure{margin:20px 0}.project-screenshots figcaption{color:var(--muted);font-size:12px;line-height:1.6;margin-top:8px}.project-screenshots a{display:block}.project-screenshots .project-image{width:100%;height:auto}

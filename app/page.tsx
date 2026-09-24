@@ -5,7 +5,7 @@ import {
   CodeXml as Github,
   MapPin,
 } from 'lucide-react';
-import { profile, education } from './resume';
+import { profile, education, projects } from './resume';
 import SpatialViewport from '../components/SpatialViewport';
 import GitHubActivity from '../components/GitHubActivity';
 import CityNav from '../components/CityNav';
@@ -107,8 +107,8 @@ export default function App() {
         <Reveal>
           <div className="stats">
             <div>
-              <strong>03</strong>
-              <span>Projects led &amp; developed</span>
+              <strong>{String(projects.length).padStart(2, '0')}</strong>
+              <span>Projects developed</span>
             </div>
             <div>
               <strong>02</strong>

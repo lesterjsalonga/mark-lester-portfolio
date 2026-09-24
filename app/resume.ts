@@ -8,11 +8,13 @@ export const profile = {
  email: 'marklestersalonga26@gmail.com',
  github: 'https://github.com/lesterjsalonga',
 };
-export type Project = { name:string; date:string; role:string; description:string; tags:string[]; kind:string; image?:string; liveUrl?:string };
+export type Project = { name:string; date:string; role:string; description:string; tags:string[]; kind:string; image?:string; liveUrl?:string; featured?:boolean; screenshots?:{src:string;caption:string}[] };
 export const projects: Project[] = [
+ {name:'pc-atlas — Interactive Computer Explorer',date:'Personal project',role:'Developer',kind:'INTERACTIVE 3D / WEB',featured:true,description:'An interactive 3D desktop computer explorer with selectable hardware components, assembled and exploded views, system filters, search, and component isolation. Inspect example specifications and trace connections between parts.',tags:['React','TypeScript','Three.js','Vite'],image:'/projects/pc-atlas.png',liveUrl:'https://pc-atlas-leztr.vercel.app/'},
+ {name:'View3D — Desktop Model Viewer',date:'Local desktop app',role:'Developer',kind:'VB.NET / 3D TOOLS',description:'A Windows desktop viewer built with VB.NET, OpenTK, and AssimpNet. Import 3D models, adjust studio lighting, inspect mesh and material statistics, switch between shading and wireframe views, and control animation playback.',tags:['VB.NET','Windows Forms','OpenTK','AssimpNet','OpenGL'],screenshots:[{src:'/projects/view3d-material.png',caption:'Material view and studio lighting — Kawasaki Ninja H2R'},{src:'/projects/view3d-wireframe.png',caption:'Wireframe overlay and mesh inspection — Kawasaki Ninja H2R'}]},
  {name:'ARchive — AR Museum Guide, ALAB Museum',date:'Dec 2025',role:'Project Lead & Developer',kind:'AR EXHIBIT GUIDE',description:'Marker-based/marker-less AR exhibit guide built with Unity, AR Foundation, and Vuforia; content platform on ReactJS with Supabase/PostgreSQL, using Huawei Cloud for backend support.',tags:['Unity','AR Foundation','Vuforia','ReactJS','Supabase','PostgreSQL','Huawei Cloud'],
  // Add a real screenshot/GIF path and a verified live project URL here.
- image:undefined,liveUrl:undefined},
+ image:undefined,liveUrl:'https://archive-web.vercel.app/'},
  {name:'Outsight — AR Campus Navigation',date:'Mar 2025',role:'Project Lead & Developer',kind:'AR WAYFINDING',description:'Real-time AR wayfinding app built with Unity and AR Foundation, with Firebase for data and authentication; led a team through planning, asset creation, and deployment.',tags:['Unity','AR Foundation','Firebase'],
  // Add a real screenshot/GIF path and a verified live project URL here.
  image:undefined,liveUrl:undefined},

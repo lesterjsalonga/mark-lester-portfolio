@@ -56,7 +56,7 @@ export default function CityContent({
             <p className="room-reading-hint">
               Scroll inside to read all{' '}
               {id === 'projects'
-                ? '3 projects'
+                ? `${projects.length} projects`
                 : id === 'experience'
                   ? '2 roles'
                   : id === 'stack'
